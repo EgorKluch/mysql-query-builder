@@ -24,14 +24,13 @@ class MysqlQueryBuilder {
   }
 
   /**
-   * @param string $db
-   * @param string $user
-   * @param string $pass
-   * @param string $host
+   * @param array $options
    * @throws \Exception
    */
-  public function __construct($db, $user, $pass, $host = 'localhost') {
-    $this->conn = new \mysqli($host, $user, $pass, $db);
+  public function __construct($options) {
+    $options['host'] = ($options['host'] or 'localhost');
+    $options['user'] = ($options['user'] or 'root');
+    $this->conn = new \mysqli($options['host'], $options['user'], $options['pass'], $options['db']);
     if ($this->conn->connect_errno) {
       $errno = $this->conn->connect_errno;
       $error = $this->conn->connect_error;

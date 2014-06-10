@@ -107,7 +107,7 @@ class MysqlQueryBuilder {
    * @param string|array $where
    * @return bool
    */
-  public function update ($table, $values, $where) {
+  public function update ($table, $where, $values) {
     $table = $this->conn->escape_string($table);
     $query = "update $table";
     $query .= ' set ' . $this->_getWhereString($values, ',');
@@ -230,8 +230,8 @@ class AssignMysqlQueryBuilder extends MysqlQueryBuilder {
     return parent::insert($this->table, $fields);
   }
 
-  public function update ($values, $where) {
-    return parent::update($this->table, $values, $where);
+  public function update ($where, $values) {
+    return parent::update($this->table, $where, $values);
   }
 
   public function del ($where) {

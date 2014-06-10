@@ -41,7 +41,7 @@ class MysqlQueryBuilder {
    * @param string $table
    * @param string|array $where
    * @param string|array $columns
-   * @return string
+   * @return array
    */
   public function select ($table, $where, $columns = '*') {
     $table = $this->conn->escape_string($table);
@@ -63,9 +63,15 @@ class MysqlQueryBuilder {
     return $this->_query($query);
   }
 
+  /**
+   * @param string $table
+   * @param string|array $where
+   * @param string|array $columns
+   * @return array|null
+   */
   public function one ($table, $where, $columns = '*') {
     $rows = $this->select($table, $where, $columns);
-    return $rows[0];
+    return $rows[0] or null;
   }
 
   /**

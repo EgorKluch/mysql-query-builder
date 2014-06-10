@@ -215,23 +215,23 @@ class AssignMysqlQueryBuilder extends MysqlQueryBuilder {
   }
 
   public function select ($where, $columns = '*') {
-    parent::select($this->table, $where, $columns);
+    return parent::select($this->table, $where, $columns);
   }
 
   public function one ($where, $columns = '*') {
-    parent::one($this->table, $where, $columns);
+    return parent::one($this->table, $where, $columns);
   }
 
   public function insert ($fields) {
-    parent::insert($this->table, $fields);
+    return parent::insert($this->table, $fields);
   }
 
   public function update ($values, $where) {
-    parent::update($this->table, $values, $where);
+    return parent::update($this->table, $values, $where);
   }
 
   public function del ($where) {
-    parent::del($this->table, $where);
+    return parent::del($this->table, $where);
   }
 
   /**

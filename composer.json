@@ -3,7 +3,7 @@
   "description": "Package provide proxy object to work with mysql. This object used for simple sql requests.",
   "license": "MIT",
   "keywords": ["database", "db", "sql", "query", "query builder", "mysql builder", "mysql"],
-  "version": "1.0b",
+  "version": "1.0b1",
   "homepage": "https://github.com/EgorKluch/mysql-query-builder",
   "authors": [
     {

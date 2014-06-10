@@ -28,8 +28,8 @@ class MysqlQueryBuilder {
    * @throws \Exception
    */
   public function __construct($options) {
-    $options['host'] = ($options['host'] or 'localhost');
-    $options['user'] = ($options['user'] or 'root');
+    $options = array_merge(array('host' => 'localhost'), $options);
+
     $this->conn = new \mysqli($options['host'], $options['user'], $options['pass'], $options['db']);
     if ($this->conn->connect_errno) {
       $errno = $this->conn->connect_errno;

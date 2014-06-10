@@ -75,6 +75,31 @@ class MysqlQueryBuilder {
   }
 
   /**
+   * @param string $table
+   * @param array $fields
+   * @return int
+   */
+  public function insert ($table, $fields) {
+    $table = $this->conn->escape_string($table);
+    $query = "insert into $table";
+
+    $tmp = array();
+    foreach ($fields as $field => $value) {
+      $tmp[] = $this->conn->escape_string($field);
+    }
+    $query .= '(' . implode(', ', $tmp) . ')';
+
+    $tmp = array();
+    foreach ($fields as $value) {
+      $tmp[] = "'" . $this->conn->escape_string($value) . "'";
+    }
+    $query .= ' values(' . implode(', ', $tmp) . ')';
+
+    $this->_query($query);
+    return $this->conn->insert_id;
+  }
+
+  /**
    * @param string $query
    * @return array
    */
@@ -82,6 +107,11 @@ class MysqlQueryBuilder {
     var_dump($query);
     $result = $this->conn->query($query);
     $this->_checkError("MysqlQueryBuilder.query");
+
+    if (is_bool($result)) {
+      return $result;
+    }
+
     $rows = array();
     while ($row = $result->fetch_assoc()) {
       $rows[] = $row;

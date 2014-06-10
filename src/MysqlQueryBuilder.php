@@ -71,8 +71,9 @@ class MysqlQueryBuilder {
    * @return array|null
    */
   public function one ($table, $where, $columns = '*') {
-    $rows = $this->select($table, $where, $columns);
-    return $rows[0] or null;
+    $rows = parent::select($this->table, $where, $columns);
+    if (count($rows) > 0) return $rows[0];
+    return null;
   }
 
   /**
@@ -212,6 +213,7 @@ class AssignMysqlQueryBuilder extends MysqlQueryBuilder {
    */
   public function __construct ($conn, $table) {
     $this->conn = $conn;
+    $this->table = $table;
   }
 
   public function select ($where, $columns = '*') {
@@ -219,7 +221,9 @@ class AssignMysqlQueryBuilder extends MysqlQueryBuilder {
   }
 
   public function one ($where, $columns = '*') {
-    return parent::one($this->table, $where, $columns);
+    $rows = parent::select($this->table, $where, $columns);
+    if (count($rows) > 0) return $rows[0];
+    return null;
   }
 
   public function insert ($fields) {

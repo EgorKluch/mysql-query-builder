@@ -63,6 +63,11 @@ class MysqlQueryBuilder {
     return $this->_query($query);
   }
 
+  public function one ($table, $where, $columns = '*') {
+    $rows = $this->select($table, $where, $columns);
+    return $rows[0];
+  }
+
   /**
    * @param string $query
    * @return array

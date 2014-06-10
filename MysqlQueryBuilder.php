@@ -115,6 +115,19 @@ class MysqlQueryBuilder {
   }
 
   /**
+   * @param string $table
+   * @param string|array $where
+   * @return bool
+   */
+  public function del ($table, $where) {
+    $table = $this->conn->escape_string($table);
+    $query = "delete from $table";
+    $query .= ' where ' . $this->_getWhereString($where);
+    $this->_query($query);
+    return true;
+  }
+
+  /**
    * @param string $query
    * @return array
    */

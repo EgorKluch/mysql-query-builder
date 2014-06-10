@@ -128,6 +128,10 @@ class MysqlQueryBuilder {
     return true;
   }
 
+  public function assign ($table) {
+    return new AssignMysqlQueryBuilder($this->conn, $table);
+  }
+
   /**
    * @param string $query
    * @return array
@@ -199,4 +203,44 @@ class MysqlQueryBuilder {
    * @var \mysqli
    */
   protected $conn;
+}
+
+class AssignMysqlQueryBuilder extends MysqlQueryBuilder {
+  /**
+   * @param \mysqli $conn
+   * @param $table
+   */
+  public function __construct ($conn, $table) {
+    $this->conn = $conn;
+  }
+
+  public function select ($where, $columns = '*') {
+    parent::select($this->table, $where, $columns);
+  }
+
+  public function one ($where, $columns = '*') {
+    parent::one($this->table, $where, $columns);
+  }
+
+  public function insert ($fields) {
+    parent::insert($this->table, $fields);
+  }
+
+  public function update ($values, $where) {
+    parent::update($this->table, $values, $where);
+  }
+
+  public function del ($where) {
+    parent::del($this->table, $where);
+  }
+
+  /**
+   * @var \mysqli
+   */
+  protected $conn;
+
+  /**
+   * @var string
+   */
+  protected $table;
 }

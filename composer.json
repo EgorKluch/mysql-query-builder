@@ -2,7 +2,7 @@
   "name": "egorkluch/mysql-query-builder",
   "description": "Mysql query builder",
   "keywords": ["database", "db", "sql", "query", "query builder", "mysql builder", "mysql"],
-  "version": "0.0.0",
+  "version": "0.1",
   "homepage": "https://github.com/EgorKluch/mysql-query-builder",
   "authors": [
     {

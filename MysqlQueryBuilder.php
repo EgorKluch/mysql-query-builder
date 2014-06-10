@@ -100,6 +100,21 @@ class MysqlQueryBuilder {
   }
 
   /**
+   * @param string $table
+   * @param string|array $values
+   * @param string|array $where
+   * @return bool
+   */
+  public function update ($table, $values, $where) {
+    $table = $this->conn->escape_string($table);
+    $query = "update $table";
+    $query .= ' set ' . $this->_getWhereString($values, ',');
+    $query .= ' where ' . $this->_getWhereString($where);
+    $this->_query($query);
+    return true;
+  }
+
+  /**
    * @param string $query
    * @return array
    */

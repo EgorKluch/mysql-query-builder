@@ -133,7 +133,6 @@ class MysqlQueryBuilder {
    * @return array
    */
   protected function _query ($query) {
-    var_dump($query);
     $result = $this->conn->query($query);
     $this->_checkError("MysqlQueryBuilder.query");
 

@@ -4,6 +4,8 @@
  * @date: 09.06.2014
  */
 
+namespace EgorKluch;
+
 class MysqlQueryBuilder {
   /**
    * @var MysqlQueryBuilder
@@ -12,7 +14,7 @@ class MysqlQueryBuilder {
 
   /**
    * @return MysqlQueryBuilder
-   * @throws Exception
+   * @throws \Exception
    */
   static public function getInstance () {
     if (!MysqlQueryBuilder::$instance) {
@@ -26,14 +28,14 @@ class MysqlQueryBuilder {
    * @param string $user
    * @param string $pass
    * @param string $host
-   * @throws Exception
+   * @throws \Exception
    */
   public function __construct($db, $user, $pass, $host = 'localhost') {
-    $this->conn = new mysqli($host, $user, $pass, $db);
+    $this->conn = new \mysqli($host, $user, $pass, $db);
     if ($this->conn->connect_errno) {
       $errno = $this->conn->connect_errno;
       $error = $this->conn->connect_error;
-      throw new Exception("Failed to connect to MySQL($errno): $error");
+      throw new \Exception("Failed to connect to MySQL($errno): $error");
     }
   }
 
@@ -155,7 +157,7 @@ class MysqlQueryBuilder {
    * @param string|array $where
    * @param string $operator
    * @return string
-   * @throws Exception
+   * @throws \Exception
    */
   protected function _getWhereString ($where, $operator = 'and') {
     if (!$where) return '';
@@ -174,7 +176,7 @@ class MysqlQueryBuilder {
       }
 
       if ('or' !== $operator) {
-        throw new Exception('Parameter $where not correct');
+        throw new \Exception('Parameter $where not correct');
       }
       foreach ($value as $oneValue) {
         $result[] = $this->_getWhereString(array($field => $oneValue));
@@ -185,18 +187,18 @@ class MysqlQueryBuilder {
 
   /**
    * @param string $errorText
-   * @throws Exception
+   * @throws \Exception
    */
   protected function _checkError ($errorText = "Mysql error") {
     if ($this->conn->errno) {
       $errno = $this->conn->errno;
       $error = $this->conn->error;
-      throw new Exception("$errorText($errno): $error");
+      throw new \Exception("$errorText($errno): $error");
     }
   }
 
   /**
-   * @var mysqli
+   * @var \mysqli
    */
   protected $conn;
 }
